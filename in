@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Surat Keluar - MA Ma'arif Darul Aman</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        :root {
+            --si-primary: #0f5132;      
+            --si-primary-light: #198754;
+            --si-bg: #f3f4f6;           
+            --si-sidebar-w: 260px;      
+            --si-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body { 
+            background-color: var(--si-bg); 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1f2937;
+            overflow-x: hidden;
+        }
+
+        .sidebar { 
+            width: var(--si-sidebar-w);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #0c3924; 
+            color: #f3f4f6;
+            z-index: 1030;
+            transition: var(--si-transition);
+            box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-wrapper {
+            padding: 1.5rem 1.25rem;
+            background: rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 2px;
+        }
+
+        .brand-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text h1 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        .brand-text p {
+            font-size: 0.7rem;
+            margin: 0;
+            color: #a3e635; 
+            font-weight: 500;
+        }
+
+        .sidebar-menu-wrapper {
+            padding: 1.25rem 0.75rem;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .menu-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 0.75rem 1rem 0.25rem 1rem;
+            font-weight: 700;
+        }
+
+        .sidebar .nav-link { 
+            color: rgba(255, 255, 255, 0.75); 
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.25rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: var(--si-transition);
+        }
+
+        .sidebar .nav-link i {
+            width: 1.5rem;
+            font-size: 1.1rem;
+            transition: var(--si-transition);
+        }
+
+        .sidebar .nav-link:hover { 
+            color: #ffffff; 
+            background-color: rgba(255, 255, 255, 0.08); 
+        }
+
+        .sidebar .nav-link.active { 
+            color: #ffffff; 
+            background-color: var(--si-primary-light); 
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+        }
+        
+        .sidebar .nav-link.active i {
+            color: #a3e635;
+        }
+
+        .main-wrapper {
+            margin-left: var(--si-sidebar-w);
+            min-height: 100vh;
+            transition: var(--si-transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-navbar {
+            background-color: #ffffff;
+            height: 70px;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+        }
+
+        .topbar-title {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .content-body {
+            padding: 2rem;
+            flex-grow: 1;
+        }
+
+        .nav-pills-custom .nav-link {
+            color: #4b5563;
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-pills-custom .nav-link:hover {
+            background-color: #e5e7eb;
+            color: #111827;
+        }
+
+        .nav-pills-custom .nav-link.active {
+            background-color: var(--si-primary-light);
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(25, 135, 84, 0.3);
+        }
+
+        .history-tabs {
+            min-width: 0;
+            max-width: 100%;
+            flex: 1 1 auto;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            padding-bottom: 0.4rem;
+        }
+
+        .history-tabs .nav-item,
+        .history-tabs .nav-link {
+            flex: 0 0 auto;
+        }
+
+        .history-table {
+            min-width: 850px;
+        }
+
+        .history-table th {
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .history-actions .dropdown-menu {
+            min-width: 12rem;
+        }
+
+        @media (max-width: 991.98px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.show { transform: translateX(0); }
+            .main-wrapper { margin-left: 0; }
+            .top-navbar { padding: 0 1.25rem; }
+            .content-body { padding: 0 1.25rem; }
+        }
+
+        @media (max-width: 575.98px) {
+            .content-body { padding: 1rem 0.75rem; }
+            .history-heading { padding: 1.25rem !important; }
+            .history-heading h2 { font-size: 1.25rem; }
+        }
+
+        @media print {
+            .sidebar, .top-navbar { display: none !important; }
+            .main-wrapper { margin-left: 0 !important; padding: 0 !important; }
+            .content-body { padding: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar" id="sidebarMenu">
+        <div class="brand-wrapper">
+            <div class="brand-logo-icon">
+                <img src="icon-512--.png" alt="Logo MA Ma'arif Darul Amin" class="brand-logo-img">
+            </div>
+            <div class="brand-text">
+                <h1>Layanan Surat Keluar</h1>
+                <p>MA Ma'arif Darul Aman</p>
+            </div>
+        </div>
+        
+        <div class="sidebar-menu-wrapper">
+            <ul class="nav flex-column">
+                <li class="menu-label">Layanan Surat</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="surat.php">
+                        <i class="fa-solid fa-paper-plane me-2"></i> Buat Surat
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="riwayat.php">
+                        <i class="fa-solid fa-clock-rotate-left me-2"></i> Riwayat Surat
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cetak_laporan_surat.php">
+                        <i class="fa-solid fa-file-invoice me-2"></i> Laporan Surat Keluar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="surat_masuk.php">
+                        <i class="fa-solid fa-inbox me-2"></i> Surat Masuk
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <hr class="text-white opacity-25 my-2">
+                </li>
+                
+                <li class="menu-label">Sistem</li>
+                
+                <li class="nav-item">
+                    <a class="nav-link text-danger-emphasis" href="logout.php" onclick="return confirm('Apakah anda yakin ingin keluar dari sistem?')">
+                        <i class="fa-solid fa-right-from-bracket me-2 text-danger"></i> Keluar Akun
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="top-navbar">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-light d-lg-none shadow-sm" type="button" id="btnToggleSidebar" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+                <h2 class="topbar-title d-none d-sm-block">Riwayat Surat Keluar</h2>
+            </div>
+            
+            <div class="d-flex align-items-center gap-3">
+                <div class="text-end d-none d-md-block">
+                    <small class="text-muted d-block" style="font-size: 0.75rem;">Selamat Datang,</small>
+                    <span class="fw-semibold text-dark small">Staf TU</span>
+                </div>
+                <div class="dropdown">
+                    <button class="btn p-0 bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
+                        <li><a class="dropdown-item py-2 small" href="index.php?page=pengaturan"><i class="fa-solid fa-gear me-2 text-muted"></i> Pengaturan</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item py-2 small text-danger" href="logout.php" onclick="return confirm('Apakah anda yakin ingin keluar?')"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <main class="content-body">
+            <div class="history-heading p-4 bg-white rounded shadow-sm mb-4 text-center" style="border-top: 5px solid #0f5132;">
+                <h2 class="fw-bold text-success"><i class="fa-solid fa-clock-rotate-left me-2"></i>Riwayat Surat Keluar</h2>
+                <p class="text-muted mb-0">MA Ma'arif Darul Aman Pringsurat, Temanggung, Jawa Tengah</p>
+            </div>
+
+                        
+            <!-- ALERT NOTIFIKASI BERHASIL DISIMPAN -->
+            
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white border-bottom p-3">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <ul class="nav nav-pills nav-pills-custom history-tabs gap-2">
+                            <li class="nav-item">
+                                <a href="riwayat.php?jenis=aktif" class="nav-link active">
+                                    <i class="fa-solid fa-file-lines me-1"></i> Aktif Belajar
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="riwayat.php?jenis=tidak_mampu" class="nav-link ">
+                                    <i class="fa-solid fa-hand-holding-heart me-1"></i> Tidak Mampu
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="riwayat.php?jenis=pindah" class="nav-link ">
+                                    <i class="fa-solid fa-right-left me-1"></i> Surat Pindah
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="riwayat.php?jenis=undangan" class="nav-link ">
+                                    <i class="fa-solid fa-envelope me-1"></i> Undangan Wali
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="riwayat.php?jenis=mgmp" class="nav-link ">
+                                    <i class="fa-solid fa-briefcase me-1"></i> Surat Tugas Umum
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="riwayat.php?jenis=diterima" class="nav-link ">
+                                    <i class="fa-solid fa-id-card me-1"></i> Keterangan Diterima
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="riwayat.php?jenis=permohonan" class="nav-link ">
+                                    <i class="fa-solid fa-file-signature me-1"></i> Surat Permohonan
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="riwayat.php?jenis=sk" class="nav-link ">
+                                    <i class="fa-solid fa-file-contract me-1"></i> Surat SK Guru
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="riwayat.php?jenis=ijin_pondok" class="nav-link ">
+                                    <i class="fa-solid fa-building-columns me-1"></i> Surat Izin Pondok
+                                </a>
+                            </li>
+                            <!-- TAB SURAT LAINNYA -->
+                            <li class="nav-item">
+                                <a href="riwayat.php?jenis=lainnya" class="nav-link ">
+                                    <i class="fa-solid fa-folder-plus me-1"></i> Surat Lainnya
+                                </a>
+                            </li>
+                        </ul>
+
+                        <a href="surat.php" class="btn btn-sm btn-outline-success fw-semibold ms-auto">
+                            <i class="fa-solid fa-plus me-1"></i> Buat Surat Baru
+                        </a>
+                    </div>
+                </div>
+
+                                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0 history-table">
+                                <thead class="table-dark">
+                                    <tr class="text-nowrap" style="background-color: #0c3924;">
+                                        <th style="width: 5%;" class="ps-3">No</th>
+                                        <th style="width: 15%;">Tanggal Buat</th>
+                                        <th style="width: 20%;">Nomor Surat</th>
+                                        <th style="width: 25%;">Nama Target / Penerima</th>
+                                        <th style="width: 15%;">Info Tambahan</th>
+                                        <th style="width: 20%;" class="text-center pe-3">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                                                                <tr>
+                                                <td class="ps-3 fw-semibold">1</td>
+                                                <td class="small text-muted">01-09-2026 05:58 WIB</td>
+                                                <td><span class="badge bg-light text-dark border font-monospace">074/MAMDA/IX/2026</span></td>
+                                                <td class="fw-medium">ABDUSSALAM MAHMUD</td>
+                                                <td class="small text-secondary">XII</td>
+                                                <td class="pe-3 text-center">
+                                                    <div class="dropdown history-actions">
+                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-ellipsis me-1"></i>Aksi
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                            <li><a href="cetak_aktif.php?id_siswa=&amp;nomor_depan=074&amp;format_belakang=%2FMAMDA%2FIX%2F2026&amp;id_tahun_ajaran=5&amp;kelas_siswa=XII&amp;jenis_surat=Aktif+Belajar&amp;mode_pengisian=manual&amp;nama_siswa_manual=ABDUSSALAM+MAHMUD&amp;nomor_induk_manual=240001&amp;nisn_manual=3094902374&amp;tempat_lahir_manual=Temanggunng&amp;tanggal_lahir_manual=2009-08-08&amp;alamat_manual=SALAMAN%2C+CAMPURSALAM%2C+PARAKAN%2C+TEMANGGUNG&amp;tanggal_cetak=2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-print me-2 text-info"></i>Cetak ulang
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=pdf&amp;jenis=aktif&amp;id=40&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D074%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXII%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DABDUSSALAM%2BMAHMUD%26nomor_induk_manual%3D240001%26nisn_manual%3D3094902374%26tempat_lahir_manual%3DTemanggunng%26tanggal_lahir_manual%3D2009-08-08%26alamat_manual%3DSALAMAN%252C%2BCAMPURSALAM%252C%2BPARAKAN%252C%2BTEMANGGUNG%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-pdf me-2 text-danger"></i>Unduh PDF
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=word&amp;jenis=aktif&amp;id=40&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D074%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXII%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DABDUSSALAM%2BMAHMUD%26nomor_induk_manual%3D240001%26nisn_manual%3D3094902374%26tempat_lahir_manual%3DTemanggunng%26tanggal_lahir_manual%3D2009-08-08%26alamat_manual%3DSALAMAN%252C%2BCAMPURSALAM%252C%2BPARAKAN%252C%2BTEMANGGUNG%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-word me-2 text-primary"></i>Unduh Word
+                                                            </a></li>
+                                                                                                                        <li><a href="edit_surat_aktif.php?id=40" class="dropdown-item">
+                                                                <i class="fa-solid fa-pen-to-square me-2 text-warning"></i>Edit data
+                                                            </a></li>
+                                                                                                                        <li><hr class="dropdown-divider"></li>
+                                                            <li><a href="hapus_surat.php?id=40&amp;jenis=aktif"
+                                                                class="dropdown-item text-danger"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data surat ini?');">
+                                                                <i class="fa-solid fa-trash-can me-2"></i>Hapus
+                                                            </a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                                                        <tr>
+                                                <td class="ps-3 fw-semibold">2</td>
+                                                <td class="small text-muted">01-09-2026 05:56 WIB</td>
+                                                <td><span class="badge bg-light text-dark border font-monospace">073/MAMDA/IX/2026</span></td>
+                                                <td class="fw-medium">NAUFA ASRI AMALIYA</td>
+                                                <td class="small text-secondary">XII</td>
+                                                <td class="pe-3 text-center">
+                                                    <div class="dropdown history-actions">
+                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-ellipsis me-1"></i>Aksi
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                            <li><a href="cetak_aktif.php?id_siswa=&amp;nomor_depan=073&amp;format_belakang=%2FMAMDA%2FIX%2F2026&amp;id_tahun_ajaran=5&amp;kelas_siswa=XII&amp;jenis_surat=Aktif+Belajar&amp;mode_pengisian=manual&amp;nama_siswa_manual=NAUFA+ASRI+AMALIYA&amp;nomor_induk_manual=240034&amp;nisn_manual=0091243251&amp;tempat_lahir_manual=KAB+SEMARANG&amp;tanggal_lahir_manual=2009-01-15&amp;alamat_manual=LINK.+SENENG%2C+NGAMPIN%2C+AMBARAWA%2C+SEMARANG&amp;tanggal_cetak=2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-print me-2 text-info"></i>Cetak ulang
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=pdf&amp;jenis=aktif&amp;id=39&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D073%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXII%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DNAUFA%2BASRI%2BAMALIYA%26nomor_induk_manual%3D240034%26nisn_manual%3D0091243251%26tempat_lahir_manual%3DKAB%2BSEMARANG%26tanggal_lahir_manual%3D2009-01-15%26alamat_manual%3DLINK.%2BSENENG%252C%2BNGAMPIN%252C%2BAMBARAWA%252C%2BSEMARANG%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-pdf me-2 text-danger"></i>Unduh PDF
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=word&amp;jenis=aktif&amp;id=39&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D073%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXII%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DNAUFA%2BASRI%2BAMALIYA%26nomor_induk_manual%3D240034%26nisn_manual%3D0091243251%26tempat_lahir_manual%3DKAB%2BSEMARANG%26tanggal_lahir_manual%3D2009-01-15%26alamat_manual%3DLINK.%2BSENENG%252C%2BNGAMPIN%252C%2BAMBARAWA%252C%2BSEMARANG%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-word me-2 text-primary"></i>Unduh Word
+                                                            </a></li>
+                                                                                                                        <li><a href="edit_surat_aktif.php?id=39" class="dropdown-item">
+                                                                <i class="fa-solid fa-pen-to-square me-2 text-warning"></i>Edit data
+                                                            </a></li>
+                                                                                                                        <li><hr class="dropdown-divider"></li>
+                                                            <li><a href="hapus_surat.php?id=39&amp;jenis=aktif"
+                                                                class="dropdown-item text-danger"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data surat ini?');">
+                                                                <i class="fa-solid fa-trash-can me-2"></i>Hapus
+                                                            </a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                                                        <tr>
+                                                <td class="ps-3 fw-semibold">3</td>
+                                                <td class="small text-muted">01-09-2026 05:51 WIB</td>
+                                                <td><span class="badge bg-light text-dark border font-monospace">072/MAMDA/IX/2026</span></td>
+                                                <td class="fw-medium">ALCHUSNAA FATIYATU ZZCAHWAA</td>
+                                                <td class="small text-secondary">XI</td>
+                                                <td class="pe-3 text-center">
+                                                    <div class="dropdown history-actions">
+                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-ellipsis me-1"></i>Aksi
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                            <li><a href="cetak_aktif.php?id_siswa=&amp;nomor_depan=072&amp;format_belakang=%2FMAMDA%2FIX%2F2026&amp;id_tahun_ajaran=5&amp;kelas_siswa=XI&amp;jenis_surat=Aktif+Belajar&amp;mode_pengisian=manual&amp;nama_siswa_manual=ALCHUSNAA+FATIYATU+ZZCAHWAA&amp;nomor_induk_manual=250004&amp;nisn_manual=3099282719&amp;tempat_lahir_manual=Magelang&amp;tanggal_lahir_manual=2009-09-23&amp;alamat_manual=SAWIT%2C+GIRIREJO%2C+NGABLAK%2C+MAGELANG&amp;tanggal_cetak=2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-print me-2 text-info"></i>Cetak ulang
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=pdf&amp;jenis=aktif&amp;id=38&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D072%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXI%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DALCHUSNAA%2BFATIYATU%2BZZCAHWAA%26nomor_induk_manual%3D250004%26nisn_manual%3D3099282719%26tempat_lahir_manual%3DMagelang%26tanggal_lahir_manual%3D2009-09-23%26alamat_manual%3DSAWIT%252C%2BGIRIREJO%252C%2BNGABLAK%252C%2BMAGELANG%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-pdf me-2 text-danger"></i>Unduh PDF
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=word&amp;jenis=aktif&amp;id=38&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D072%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXI%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DALCHUSNAA%2BFATIYATU%2BZZCAHWAA%26nomor_induk_manual%3D250004%26nisn_manual%3D3099282719%26tempat_lahir_manual%3DMagelang%26tanggal_lahir_manual%3D2009-09-23%26alamat_manual%3DSAWIT%252C%2BGIRIREJO%252C%2BNGABLAK%252C%2BMAGELANG%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-word me-2 text-primary"></i>Unduh Word
+                                                            </a></li>
+                                                                                                                        <li><a href="edit_surat_aktif.php?id=38" class="dropdown-item">
+                                                                <i class="fa-solid fa-pen-to-square me-2 text-warning"></i>Edit data
+                                                            </a></li>
+                                                                                                                        <li><hr class="dropdown-divider"></li>
+                                                            <li><a href="hapus_surat.php?id=38&amp;jenis=aktif"
+                                                                class="dropdown-item text-danger"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data surat ini?');">
+                                                                <i class="fa-solid fa-trash-can me-2"></i>Hapus
+                                                            </a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                                                        <tr>
+                                                <td class="ps-3 fw-semibold">4</td>
+                                                <td class="small text-muted">01-09-2026 05:28 WIB</td>
+                                                <td><span class="badge bg-light text-dark border font-monospace">071/MAMDA/IX/2026</span></td>
+                                                <td class="fw-medium">Fajar Ayatul Husna</td>
+                                                <td class="small text-secondary">X</td>
+                                                <td class="pe-3 text-center">
+                                                    <div class="dropdown history-actions">
+                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-ellipsis me-1"></i>Aksi
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                            <li><a href="cetak_aktif.php?id_siswa=&amp;nomor_depan=071&amp;format_belakang=%2FMAMDA%2FIX%2F2026&amp;id_tahun_ajaran=5&amp;kelas_siswa=X&amp;jenis_surat=Aktif+Belajar&amp;mode_pengisian=manual&amp;nama_siswa_manual=Fajar+Ayatul+Husna&amp;nomor_induk_manual=260016&amp;nisn_manual=0104248153&amp;tempat_lahir_manual=Kota+Waringin+Barat&amp;tanggal_lahir_manual=2010-12-05&amp;alamat_manual=Kalikotes+Rt+002+RW+004%2C+Madyocondro%2C+Secang%2C+Magelang&amp;tanggal_cetak=2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-print me-2 text-info"></i>Cetak ulang
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=pdf&amp;jenis=aktif&amp;id=37&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D071%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DX%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DFajar%2BAyatul%2BHusna%26nomor_induk_manual%3D260016%26nisn_manual%3D0104248153%26tempat_lahir_manual%3DKota%2BWaringin%2BBarat%26tanggal_lahir_manual%3D2010-12-05%26alamat_manual%3DKalikotes%2BRt%2B002%2BRW%2B004%252C%2BMadyocondro%252C%2BSecang%252C%2BMagelang%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-pdf me-2 text-danger"></i>Unduh PDF
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=word&amp;jenis=aktif&amp;id=37&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D071%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DX%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DFajar%2BAyatul%2BHusna%26nomor_induk_manual%3D260016%26nisn_manual%3D0104248153%26tempat_lahir_manual%3DKota%2BWaringin%2BBarat%26tanggal_lahir_manual%3D2010-12-05%26alamat_manual%3DKalikotes%2BRt%2B002%2BRW%2B004%252C%2BMadyocondro%252C%2BSecang%252C%2BMagelang%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-word me-2 text-primary"></i>Unduh Word
+                                                            </a></li>
+                                                                                                                        <li><a href="edit_surat_aktif.php?id=37" class="dropdown-item">
+                                                                <i class="fa-solid fa-pen-to-square me-2 text-warning"></i>Edit data
+                                                            </a></li>
+                                                                                                                        <li><hr class="dropdown-divider"></li>
+                                                            <li><a href="hapus_surat.php?id=37&amp;jenis=aktif"
+                                                                class="dropdown-item text-danger"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data surat ini?');">
+                                                                <i class="fa-solid fa-trash-can me-2"></i>Hapus
+                                                            </a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                                                        <tr>
+                                                <td class="ps-3 fw-semibold">5</td>
+                                                <td class="small text-muted">01-09-2026 05:21 WIB</td>
+                                                <td><span class="badge bg-light text-dark border font-monospace">070/MAMDA/IX/2026</span></td>
+                                                <td class="fw-medium">LULUK ISMASARI</td>
+                                                <td class="small text-secondary">XI</td>
+                                                <td class="pe-3 text-center">
+                                                    <div class="dropdown history-actions">
+                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-ellipsis me-1"></i>Aksi
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                            <li><a href="cetak_aktif.php?id_siswa=&amp;nomor_depan=070&amp;format_belakang=%2FMAMDA%2FIX%2F2026&amp;id_tahun_ajaran=5&amp;kelas_siswa=XI&amp;jenis_surat=Aktif+Belajar&amp;mode_pengisian=manual&amp;nama_siswa_manual=LULUK+ISMASARI&amp;nomor_induk_manual=250022&amp;nisn_manual=0102349717&amp;tempat_lahir_manual=Magelang&amp;tanggal_lahir_manual=2010-05-19&amp;alamat_manual=SEMARE+%2CMAGERSARI%2C+NGABLAK%2C+MAGELANG&amp;tanggal_cetak=2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-print me-2 text-info"></i>Cetak ulang
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=pdf&amp;jenis=aktif&amp;id=36&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D070%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXI%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DLULUK%2BISMASARI%26nomor_induk_manual%3D250022%26nisn_manual%3D0102349717%26tempat_lahir_manual%3DMagelang%26tanggal_lahir_manual%3D2010-05-19%26alamat_manual%3DSEMARE%2B%252CMAGERSARI%252C%2BNGABLAK%252C%2BMAGELANG%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-pdf me-2 text-danger"></i>Unduh PDF
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=word&amp;jenis=aktif&amp;id=36&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D070%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXI%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DLULUK%2BISMASARI%26nomor_induk_manual%3D250022%26nisn_manual%3D0102349717%26tempat_lahir_manual%3DMagelang%26tanggal_lahir_manual%3D2010-05-19%26alamat_manual%3DSEMARE%2B%252CMAGERSARI%252C%2BNGABLAK%252C%2BMAGELANG%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-word me-2 text-primary"></i>Unduh Word
+                                                            </a></li>
+                                                                                                                        <li><a href="edit_surat_aktif.php?id=36" class="dropdown-item">
+                                                                <i class="fa-solid fa-pen-to-square me-2 text-warning"></i>Edit data
+                                                            </a></li>
+                                                                                                                        <li><hr class="dropdown-divider"></li>
+                                                            <li><a href="hapus_surat.php?id=36&amp;jenis=aktif"
+                                                                class="dropdown-item text-danger"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data surat ini?');">
+                                                                <i class="fa-solid fa-trash-can me-2"></i>Hapus
+                                                            </a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                                                        <tr>
+                                                <td class="ps-3 fw-semibold">6</td>
+                                                <td class="small text-muted">01-09-2026 05:17 WIB</td>
+                                                <td><span class="badge bg-light text-dark border font-monospace">069/MAMDA/IX/2026</span></td>
+                                                <td class="fw-medium">Mega Sevia Naesila</td>
+                                                <td class="small text-secondary">XI</td>
+                                                <td class="pe-3 text-center">
+                                                    <div class="dropdown history-actions">
+                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-ellipsis me-1"></i>Aksi
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                            <li><a href="cetak_aktif.php?id_siswa=&amp;nomor_depan=069&amp;format_belakang=%2FMAMDA%2FIX%2F2026&amp;id_tahun_ajaran=5&amp;kelas_siswa=XI&amp;jenis_surat=Aktif+Belajar&amp;mode_pengisian=manual&amp;nama_siswa_manual=Mega+Sevia+Naesila&amp;nomor_induk_manual=250039&amp;nisn_manual=3109779002&amp;tempat_lahir_manual=Temanggunng&amp;tanggal_lahir_manual=2010-02-13&amp;alamat_manual=Kamal+RT+002+RW+001+Kundisari%2C+Kedu%2C+Temanggung&amp;tanggal_cetak=2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-print me-2 text-info"></i>Cetak ulang
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=pdf&amp;jenis=aktif&amp;id=35&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D069%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXI%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DMega%2BSevia%2BNaesila%26nomor_induk_manual%3D250039%26nisn_manual%3D3109779002%26tempat_lahir_manual%3DTemanggunng%26tanggal_lahir_manual%3D2010-02-13%26alamat_manual%3DKamal%2BRT%2B002%2BRW%2B001%2BKundisari%252C%2BKedu%252C%2BTemanggung%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-pdf me-2 text-danger"></i>Unduh PDF
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=word&amp;jenis=aktif&amp;id=35&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D069%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXI%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DMega%2BSevia%2BNaesila%26nomor_induk_manual%3D250039%26nisn_manual%3D3109779002%26tempat_lahir_manual%3DTemanggunng%26tanggal_lahir_manual%3D2010-02-13%26alamat_manual%3DKamal%2BRT%2B002%2BRW%2B001%2BKundisari%252C%2BKedu%252C%2BTemanggung%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-word me-2 text-primary"></i>Unduh Word
+                                                            </a></li>
+                                                                                                                        <li><a href="edit_surat_aktif.php?id=35" class="dropdown-item">
+                                                                <i class="fa-solid fa-pen-to-square me-2 text-warning"></i>Edit data
+                                                            </a></li>
+                                                                                                                        <li><hr class="dropdown-divider"></li>
+                                                            <li><a href="hapus_surat.php?id=35&amp;jenis=aktif"
+                                                                class="dropdown-item text-danger"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data surat ini?');">
+                                                                <i class="fa-solid fa-trash-can me-2"></i>Hapus
+                                                            </a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                                                        <tr>
+                                                <td class="ps-3 fw-semibold">7</td>
+                                                <td class="small text-muted">01-09-2026 05:08 WIB</td>
+                                                <td><span class="badge bg-light text-dark border font-monospace">068/MAMDA/IX/2026</span></td>
+                                                <td class="fw-medium">LATIFATUL KASANAH</td>
+                                                <td class="small text-secondary">XII</td>
+                                                <td class="pe-3 text-center">
+                                                    <div class="dropdown history-actions">
+                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-ellipsis me-1"></i>Aksi
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                            <li><a href="cetak_aktif.php?id_siswa=&amp;nomor_depan=068&amp;format_belakang=%2FMAMDA%2FIX%2F2026&amp;id_tahun_ajaran=5&amp;kelas_siswa=XII&amp;jenis_surat=Aktif+Belajar&amp;mode_pengisian=manual&amp;nama_siswa_manual=LATIFATUL+KASANAH&amp;nomor_induk_manual=240023&amp;nisn_manual=0093760587&amp;tempat_lahir_manual=KAB+SEMARANG&amp;tanggal_lahir_manual=2009-01-06&amp;alamat_manual=TEGAL+MELIK+GEBUGAN%2C+BERGAS%2C+SEMARANG&amp;tanggal_cetak=2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-print me-2 text-info"></i>Cetak ulang
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=pdf&amp;jenis=aktif&amp;id=34&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D068%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXII%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DLATIFATUL%2BKASANAH%26nomor_induk_manual%3D240023%26nisn_manual%3D0093760587%26tempat_lahir_manual%3DKAB%2BSEMARANG%26tanggal_lahir_manual%3D2009-01-06%26alamat_manual%3DTEGAL%2BMELIK%2BGEBUGAN%252C%2BBERGAS%252C%2BSEMARANG%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-pdf me-2 text-danger"></i>Unduh PDF
+                                                            </a></li>
+                                                            <li><a href="unduh_surat.php?format=word&amp;jenis=aktif&amp;id=34&amp;url=cetak_aktif.php%3Fid_siswa%3D%26nomor_depan%3D068%26format_belakang%3D%252FMAMDA%252FIX%252F2026%26id_tahun_ajaran%3D5%26kelas_siswa%3DXII%26jenis_surat%3DAktif%2BBelajar%26mode_pengisian%3Dmanual%26nama_siswa_manual%3DLATIFATUL%2BKASANAH%26nomor_induk_manual%3D240023%26nisn_manual%3D0093760587%26tempat_lahir_manual%3DKAB%2BSEMARANG%26tanggal_lahir_manual%3D2009-01-06%26alamat_manual%3DTEGAL%2BMELIK%2BGEBUGAN%252C%2BBERGAS%252C%2BSEMARANG%26tanggal_cetak%3D2026-09-01" target="_blank" rel="noopener" class="dropdown-item">
+                                                                <i class="fa-solid fa-file-word me-2 text-primary"></i>Unduh Word
+                                                            </a></li>
+                                                                                                                        <li><a href="edit_surat_aktif.php?id=34" class="dropdown-item">
+                                                                <i class="fa-solid fa-pen-to-square me-2 text-warning"></i>Edit data
+                                                            </a></li>
+                                                                                                                        <li><hr class="dropdown-divider"></li>
+                                                            <li><a href="hapus_surat.php?id=34&amp;jenis=aktif"
+                                                                class="dropdown-item text-danger"
+                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data surat ini?');">
+                                                                <i class="fa-solid fa-trash-can me-2"></i>Hapus
+                                                            </a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                            </div>
+
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnToggle = document.getElementById('btnToggleSidebar');
+        const sidebar = document.getElementById('sidebarMenu');
+
+        if (btnToggle && sidebar) {
+            btnToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                sidebar.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!sidebar.contains(e.target) && !btnToggle.contains(e.target)) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>

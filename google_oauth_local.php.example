@@ -1,0 +1,7 @@
+<?php
+
+// Contoh konfigurasi khusus server. Salin file ini menjadi google_oauth_local.php,
+// lalu isi nilai produksi Google OAuth. Jangan upload contoh ini dengan credential asli.
+define('GOOGLE_OAUTH_LOCAL_CLIENT_ID', 'ISI_CLIENT_ID_PRODUKSI.apps.googleusercontent.com');
+define('GOOGLE_OAUTH_LOCAL_CLIENT_SECRET', 'ISI_CLIENT_SECRET_PRODUKSI');
+define('GOOGLE_OAUTH_LOCAL_REDIRECT_URI', 'https://domainanda/buku_induk/login_google.php');

@@ -1,0 +1,12 @@
+vendor/
+uploads/
+google_oauth_local.php
+.env
+.env.*
+*.log
+error_log
+.DS_Store
+Thumbs.db
+*.zip
+*.tar
+*.tar.gz
